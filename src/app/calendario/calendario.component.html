@@ -1,0 +1,29 @@
+<ActionBar title="Calendario" class="action-bar">
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="onBackTap()"></NavigationButton>
+</ActionBar>
+
+<GridLayout rows="auto, *">
+  <DatePicker (dateChange)="onDateSelected($event)" row="0"></DatePicker>
+  
+  <ScrollView row="1">
+    <StackLayout class="p-10">
+      <Label text="Agregar Evento" class="h2"></Label>
+      <TextField hint="Nombre del evento" [(ngModel)]="nuevoEvento.nombre" class="input"></TextField>
+      <DatePicker [(ngModel)]="nuevoEvento.fecha"></DatePicker>
+      <TimePicker [(ngModel)]="nuevoEvento.hora"></TimePicker>
+      <TextField hint="Ubicación" [(ngModel)]="nuevoEvento.ubicacion" class="input"></TextField>
+      <Button text="Agregar Evento" (tap)="agregarEvento()" class="btn-primary"></Button>
+
+      <Label text="Eventos del día seleccionado" class="h2 m-t-20"></Label>
+      <ListView [items]="eventosDia" class="list-group">
+        <ng-template let-evento="item">
+          <StackLayout class="list-group-item">
+            <Label [text]="evento.nombre" class="list-group-item-heading"></Label>
+            <Label [text]="evento.fecha | date:'dd/MM/yyyy HH:mm'" class="list-group-item-text"></Label>
+            <Label [text]="evento.ubicacion" class="list-group-item-text"></Label>
+          </StackLayout>
+        </ng-template>
+      </ListView>
+    </StackLayout>
+  </ScrollView>
+</GridLayout>

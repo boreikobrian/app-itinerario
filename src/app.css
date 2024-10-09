@@ -1,0 +1,99 @@
+@import '@nativescript/theme/css/core.css';
+@import '@nativescript/theme/css/default.css';
+
+.ns-dark {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.page {
+  background-color: #f0f0f0;
+}
+
+.ns-dark .page {
+  background-color: #121212;
+}
+
+.action-bar {
+  background-color: #3498db;
+  color: white;
+}
+
+.ns-dark .action-bar {
+  background-color: #1e88e5;
+}
+
+.btn-primary {
+  background-color: #3498db;
+  border-radius: 5;
+  color: white;
+  font-weight: bold;
+  margin: 10 5;
+}
+
+.ns-dark .btn-primary {
+  background-color: #1e88e5;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10;
+  margin: 10;
+  padding: 15;
+  elevation: 3;
+}
+
+.ns-dark .card {
+  background-color: #1e1e1e;
+  color: #ffffff;
+}
+
+.h2 {
+  font-size: 24;
+  font-weight: bold;
+  margin-bottom: 10;
+  color: #2c3e50;
+}
+
+.ns-dark .h2 {
+  color: #ecf0f1;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.list-item {
+  padding: 10;
+  border-bottom-width: 1;
+  border-bottom-color: #e0e0e0;
+}
+
+.ns-dark .list-item {
+  border-bottom-color: #333333;
+}
+
+.completed {
+  text-decoration: line-through;
+  color: #7f8c8d;
+}
+
+.ns-dark .completed {
+  color: #95a5a6;
+}
+
+.input {
+  background-color: #ffffff;
+  color: #333333;
+  padding: 10;
+  margin: 5 0;
+  border-width: 1;
+  border-color: #cccccc;
+  border-radius: 5;
+}
+
+.ns-dark .input {
+  background-color: #333333;
+  color: #ffffff;
+  border-color: #555555;
+}

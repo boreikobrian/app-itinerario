@@ -1,0 +1,19 @@
+<ActionBar title="Itinerario" class="action-bar">
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="onBackTap()"></NavigationButton>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout class="page p-10">
+    <TextField hint="Actividad" [(ngModel)]="nuevaActividad" class="input"></TextField>
+    <TimePicker (timeChange)="onTimeSelected($event)" [time]="horaSeleccionada"></TimePicker>
+    <Button text="Agregar Actividad" (tap)="agregarActividad()" class="btn-primary"></Button>
+    <ListView [items]="actividades" class="list-group">
+      <ng-template let-actividad="item">
+        <StackLayout class="list-group-item">
+          <Label [text]="actividad.nombre + ' - ' + actividad.hora" class="list-group-item-heading"></Label>
+          <Label [text]="'Ubicación: ' + actividad.ubicacion" class="list-group-item-text" textWrap="true"></Label>
+        </StackLayout>
+      </ng-template>
+    </ListView>
+  </StackLayout>
+</ScrollView>

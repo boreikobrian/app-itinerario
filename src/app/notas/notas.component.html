@@ -1,0 +1,28 @@
+<ActionBar title="Notas y Tareas" class="action-bar">
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="onBackTap()"></NavigationButton>
+</ActionBar>
+
+<TabView selectedTabTextColor="#3498db" tabTextFontSize="16">
+  <StackLayout *tabItem="{title: 'Notas'}" class="page">
+    <TextField hint="Nueva nota" [(ngModel)]="nuevaNota" class="input"></TextField>
+    <Button text="Agregar Nota" (tap)="agregarNota()" class="btn-primary"></Button>
+    <ListView [items]="notas" class="list-group">
+      <ng-template let-nota="item">
+        <Label [text]="nota.contenido + ' (' + nota.fecha.toLocaleString() + ')'" textWrap="true" class="list-group-item"></Label>
+      </ng-template>
+    </ListView>
+  </StackLayout>
+
+  <StackLayout *tabItem="{title: 'Tareas'}" class="page">
+    <TextField hint="Nueva tarea" [(ngModel)]="nuevaTarea" class="input"></TextField>
+    <Button text="Agregar Tarea" (tap)="agregarTarea()" class="btn-primary"></Button>
+    <ListView [items]="tareas" class="list-group">
+      <ng-template let-tarea="item" let-i="index">
+        <GridLayout columns="auto, *" class="list-group-item">
+          <CheckBox [checked]="tarea.completada" (tap)="toggleTarea(i)" col="0"></CheckBox>
+          <Label [text]="tarea.descripcion" [class.completed]="tarea.completada" col="1"></Label>
+        </GridLayout>
+      </ng-template>
+    </ListView>
+  </StackLayout>
+</TabView>

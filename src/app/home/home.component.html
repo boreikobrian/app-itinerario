@@ -1,0 +1,33 @@
+<ActionBar title="Organizador de Viajes" class="action-bar">
+  <ActionItem ios.position="right" android.position="actionBar">
+    <Switch (checkedChange)="onThemeToggle($event)" [checked]="isDarkMode"></Switch>
+  </ActionItem>
+</ActionBar>
+
+<ScrollView>
+  <StackLayout class="page">
+    <Label text="Bienvenidos a su Organizador de Viajes" class="h2 text-center m-t-20 m-b-10"></Label>
+    <Label text="Planifica y disfruta tu viaje en pareja" class="text-center m-b-20" textWrap="true"></Label>
+    
+    <GridLayout columns="*, *" rows="auto, auto, auto" class="m-10">
+      <Button text="Calendario" (tap)="navigateTo('/calendario')" class="btn-primary" row="0" col="0"></Button>
+      <Button text="Fotos" (tap)="navigateTo('/fotos')" class="btn-primary" row="0" col="1"></Button>
+      <Button text="Itinerario" (tap)="navigateTo('/itinerario')" class="btn-primary" row="1" col="0"></Button>
+      <Button text="Presupuesto" (tap)="navigateTo('/presupuesto')" class="btn-primary" row="1" col="1"></Button>
+      <Button text="Notas" (tap)="navigateTo('/notas')" class="btn-primary" row="2" col="0" colSpan="2"></Button>
+    </GridLayout>
+
+    <StackLayout class="card">
+      <Label text="Próximo Evento" class="h2"></Label>
+      <Label [text]="proximoEvento?.nombre || 'No hay eventos próximos'" class="body"></Label>
+      <Label [text]="proximoEvento?.fecha | date:'dd/MM/yyyy HH:mm'" class="body" *ngIf="proximoEvento"></Label>
+    </StackLayout>
+
+    <StackLayout class="card">
+      <Label text="Resumen de Presupuesto" class="h2"></Label>
+      <Label [text]="'Total: $' + presupuestoTotal" class="body"></Label>
+      <Label [text]="'Gastado: $' + gastoTotal" class="body"></Label>
+      <Label [text]="'Restante: $' + (presupuestoTotal - gastoTotal)" class="body"></Label>
+    </StackLayout>
+  </StackLayout>
+</ScrollView>

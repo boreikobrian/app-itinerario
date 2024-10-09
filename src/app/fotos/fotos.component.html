@@ -1,0 +1,12 @@
+<ActionBar title="Fotos" class="action-bar">
+  <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="onBackTap()"></NavigationButton>
+</ActionBar>
+
+<GridLayout rows="auto, *">
+  <Button text="Tomar Foto" (tap)="tomarFoto()" class="btn-primary" row="0"></Button>
+  <ScrollView row="1">
+    <WrapLayout>
+      <Image *ngFor="let foto of fotos" [src]="foto" stretch="aspectFill" width="33%" height="120" class="m-1"></Image>
+    </WrapLayout>
+  </ScrollView>
+</GridLayout>
