@@ -4,25 +4,42 @@
 
 <TabView selectedTabTextColor="#3498db" tabTextFontSize="16">
   <StackLayout *tabItem="{title: 'Notas'}" class="page">
-    <TextField hint="Nueva nota" [(ngModel)]="nuevaNota" class="input"></TextField>
-    <Button text="Agregar Nota" (tap)="agregarNota()" class="btn-primary"></Button>
-    <ListView [items]="notas" class="list-group">
-      <ng-template let-nota="item">
-        <Label [text]="nota.contenido + ' (' + nota.fecha.toLocaleString() + ')'" textWrap="true" class="list-group-item"></Label>
-      </ng-template>
-    </ListView>
+    <GridLayout rows="auto, *" class="p-10">
+      <StackLayout row="0" class="input-container">
+        <TextField hint="Nueva nota" [(ngModel)]="nuevaNota" class="input" returnKeyType="done" (returnPress)="agregarNota()"></TextField>
+        <Button text="Agregar Nota" (tap)="agregarNota()" class="btn-primary"></Button>
+      </StackLayout>
+
+      <ListView [items]="notas" row="1" class="list-group m-t-10">
+        <ng-template let-nota="item">
+          <GridLayout columns="*, auto" class="note-item p-10">
+            <StackLayout col="0">
+              <Label [text]="nota.contenido" textWrap="true" class="note-text"></Label>
+              <Label [text]="nota.fecha | date:'dd/MM/yyyy HH:mm'" class="note-date"></Label>
+            </StackLayout>
+            <Label col="1" text="🗑️" (tap)="eliminarNota(nota.id)" class="delete-icon"></Label>
+          </GridLayout>
+        </ng-template>
+      </ListView>
+    </GridLayout>
   </StackLayout>
 
   <StackLayout *tabItem="{title: 'Tareas'}" class="page">
-    <TextField hint="Nueva tarea" [(ngModel)]="nuevaTarea" class="input"></TextField>
-    <Button text="Agregar Tarea" (tap)="agregarTarea()" class="btn-primary"></Button>
-    <ListView [items]="tareas" class="list-group">
-      <ng-template let-tarea="item" let-i="index">
-        <GridLayout columns="auto, *" class="list-group-item">
-          <CheckBox [checked]="tarea.completada" (tap)="toggleTarea(i)" col="0"></CheckBox>
-          <Label [text]="tarea.descripcion" [class.completed]="tarea.completada" col="1"></Label>
-        </GridLayout>
-      </ng-template>
-    </ListView>
+    <GridLayout rows="auto, *" class="p-10">
+      <StackLayout row="0" class="input-container">
+        <TextField hint="Nueva tarea" [(ngModel)]="nuevaTarea" class="input" returnKeyType="done" (returnPress)="agregarTarea()"></TextField>
+        <Button text="Agregar Tarea" (tap)="agregarTarea()" class="btn-primary"></Button>
+      </StackLayout>
+
+      <ListView [items]="tareas" row="1" class="list-group m-t-10">
+        <ng-template let-tarea="item">
+          <GridLayout columns="auto, *, auto" class="task-item p-10">
+            <Label col="0" [text]="tarea.completada ? '☑️' : '⬜'" (tap)="toggleTarea(tarea)" class="checkbox-icon"></Label>
+            <Label col="1" [text]="tarea.descripcion" [class.completed]="tarea.completada" textWrap="true" class="task-text"></Label>
+            <Label col="2" text="🗑️" (tap)="eliminarTarea(tarea.id)" class="delete-icon"></Label>
+          </GridLayout>
+        </ng-template>
+      </ListView>
+    </GridLayout>
   </StackLayout>
 </TabView>

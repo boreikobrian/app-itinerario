@@ -1,99 +1,209 @@
 @import '@nativescript/theme/css/core.css';
 @import '@nativescript/theme/css/default.css';
 
-.ns-dark {
-  background-color: #121212;
-  color: #ffffff;
-}
-
 .page {
-  background-color: #f0f0f0;
+  background: linear-gradient(135deg, #43cea2 0%, #185a9d 100%);
 }
 
 .ns-dark .page {
-  background-color: #121212;
+  background: linear-gradient(135deg, #141e30 0%, #243b55 100%);
 }
 
 .action-bar {
-  background-color: #3498db;
+  background: transparent;
   color: white;
-}
-
-.ns-dark .action-bar {
-  background-color: #1e88e5;
-}
-
-.btn-primary {
-  background-color: #3498db;
-  border-radius: 5;
-  color: white;
-  font-weight: bold;
-  margin: 10 5;
-}
-
-.ns-dark .btn-primary {
-  background-color: #1e88e5;
-}
-
-.card {
-  background-color: white;
-  border-radius: 10;
-  margin: 10;
-  padding: 15;
-  elevation: 3;
-}
-
-.ns-dark .card {
-  background-color: #1e1e1e;
-  color: #ffffff;
-}
-
-.h2 {
   font-size: 24;
   font-weight: bold;
+}
+
+.hero-section {
+  padding: 30 20;
+}
+
+.hero-title {
+  color: white;
+  font-size: 32;
+  font-weight: bold;
+  text-align: center;
   margin-bottom: 10;
-  color: #2c3e50;
 }
 
-.ns-dark .h2 {
-  color: #ecf0f1;
-}
-
-.text-center {
+.hero-subtitle {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 18;
   text-align: center;
 }
 
-.list-item {
-  padding: 10;
-  border-bottom-width: 1;
-  border-bottom-color: #e0e0e0;
+.features-grid {
+  padding: 15;
 }
 
-.ns-dark .list-item {
-  border-bottom-color: #333333;
+.feature-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20;
+  margin: 5;
+  padding: 20;
+  elevation: 4;
+  text-align: center;
 }
 
-.completed {
-  text-decoration: line-through;
+.ns-dark .feature-card {
+  background-color: rgba(30, 30, 30, 0.95);
+}
+
+.feature-card-wide {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20;
+  margin: 5;
+  padding: 20;
+  elevation: 4;
+  text-align: center;
+}
+
+.ns-dark .feature-card-wide {
+  background-color: rgba(30, 30, 30, 0.95);
+}
+
+.feature-icon {
+  font-size: 32;
+  margin-bottom: 10;
+}
+
+.feature-title {
+  color: #2c3e50;
+  font-size: 16;
+  font-weight: bold;
+}
+
+.ns-dark .feature-title {
+  color: #ecf0f1;
+}
+
+.section-title {
+  color: white;
+  font-size: 20;
+  font-weight: bold;
+  margin-bottom: 10;
+}
+
+.event-card {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 15;
+  padding: 15;
+  margin-top: 10;
+}
+
+.ns-dark .event-card {
+  background-color: rgba(30, 30, 30, 0.95);
+}
+
+.event-title {
+  color: #2c3e50;
+  font-size: 18;
+  font-weight: bold;
+}
+
+.ns-dark .event-title {
+  color: #ecf0f1;
+}
+
+.event-date {
   color: #7f8c8d;
+  font-size: 14;
+  margin-top: 5;
 }
 
-.ns-dark .completed {
-  color: #95a5a6;
+.ns-dark .event-date {
+  color: #bdc3c7;
+}
+
+.budget-grid {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 15;
+  padding: 15;
+  margin-top: 10;
+}
+
+.ns-dark .budget-grid {
+  background-color: rgba(30, 30, 30, 0.95);
+}
+
+.budget-label {
+  color: #2c3e50;
+  font-size: 16;
+}
+
+.ns-dark .budget-label {
+  color: #ecf0f1;
+}
+
+.budget-amount {
+  color: #2c3e50;
+  font-size: 16;
+  font-weight: bold;
+  text-align: right;
+}
+
+.ns-dark .budget-amount {
+  color: #ecf0f1;
+}
+
+.budget-amount.positive {
+  color: #27ae60;
+}
+
+.budget-amount.negative {
+  color: #c0392b;
+}
+
+.btn-primary {
+  background: linear-gradient(to right, #00b09b, #96c93d);
+  border-radius: 25;
+  color: white;
+  font-weight: bold;
+  margin: 10 15;
+  padding: 15 20;
+  font-size: 16;
+}
+
+.gallery-grid {
+  padding: 2;
+}
+
+.gallery-image {
+  border-radius: 10;
+  margin: 2;
 }
 
 .input {
-  background-color: #ffffff;
-  color: #333333;
-  padding: 10;
-  margin: 5 0;
-  border-width: 1;
-  border-color: #cccccc;
-  border-radius: 5;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 12;
+  color: #2c3e50;
+  font-size: 16;
+  margin: 8 0;
+  padding: 12 15;
 }
 
 .ns-dark .input {
-  background-color: #333333;
-  color: #ffffff;
-  border-color: #555555;
+  background-color: rgba(30, 30, 30, 0.95);
+  color: #ecf0f1;
+}
+
+.category-pill {
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 20;
+  color: #2c3e50;
+  font-size: 14;
+  margin: 4;
+  padding: 8 16;
+}
+
+.ns-dark .category-pill {
+  background-color: rgba(30, 30, 30, 0.95);
+  color: #ecf0f1;
+}
+
+.category-pill.selected {
+  background: linear-gradient(to right, #00b09b, #96c93d);
+  color: white;
 }

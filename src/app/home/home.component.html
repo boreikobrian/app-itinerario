@@ -1,33 +1,86 @@
-<ActionBar title="Organizador de Viajes" class="action-bar">
-  <ActionItem ios.position="right" android.position="actionBar">
-    <Switch (checkedChange)="onThemeToggle($event)" [checked]="isDarkMode"></Switch>
-  </ActionItem>
-</ActionBar>
-
-<ScrollView>
-  <StackLayout class="page">
-    <Label text="Bienvenidos a su Organizador de Viajes" class="h2 text-center m-t-20 m-b-10"></Label>
-    <Label text="Planifica y disfruta tu viaje en pareja" class="text-center m-b-20" textWrap="true"></Label>
-    
-    <GridLayout columns="*, *" rows="auto, auto, auto" class="m-10">
-      <Button text="Calendario" (tap)="navigateTo('/calendario')" class="btn-primary" row="0" col="0"></Button>
-      <Button text="Fotos" (tap)="navigateTo('/fotos')" class="btn-primary" row="0" col="1"></Button>
-      <Button text="Itinerario" (tap)="navigateTo('/itinerario')" class="btn-primary" row="1" col="0"></Button>
-      <Button text="Presupuesto" (tap)="navigateTo('/presupuesto')" class="btn-primary" row="1" col="1"></Button>
-      <Button text="Notas" (tap)="navigateTo('/notas')" class="btn-primary" row="2" col="0" colSpan="2"></Button>
+<GridLayout rows="*" columns="*">
+  <!-- Menú lateral -->
+  <RadSideDrawer>
+    <GridLayout tkDrawerContent rows="auto, *, auto" class="sidedrawer-content">
+      <StackLayout row="0" class="sidedrawer-header">
+        <Label text="Menú" class="sidedrawer-header-text"></Label>
+      </StackLayout>
+      
+      <StackLayout row="1" class="sidedrawer-content">
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" (tap)="navigateTo('/perfil')">
+          <Label col="0" text="👤" class="sidedrawer-icon"></Label>
+          <Label col="1" text="Tu Cuenta" class="sidedrawer-item"></Label>
+        </GridLayout>
+        
+        <GridLayout columns="auto, *" class="sidedrawer-list-item" (tap)="navigateTo('/ajustes')">
+          <Label col="0" text="⚙️" class="sidedrawer-icon"></Label>
+          <Label col="1" text="Ajustes" class="sidedrawer-item"></Label>
+        </GridLayout>
+      </StackLayout>
     </GridLayout>
 
-    <StackLayout class="card">
-      <Label text="Próximo Evento" class="h2"></Label>
-      <Label [text]="proximoEvento?.nombre || 'No hay eventos próximos'" class="body"></Label>
-      <Label [text]="proximoEvento?.fecha | date:'dd/MM/yyyy HH:mm'" class="body" *ngIf="proximoEvento"></Label>
-    </StackLayout>
+    <GridLayout tkMainContent rows="auto, *">
+      <ActionBar class="action-bar" row="0">
+        <NavigationButton (tap)="openDrawer()" android.systemIcon="ic_menu_moreoverflow"></NavigationButton>
+        <Label text="aca va el nombre"></Label>
+        <ActionItem (tap)="toggleTheme()" ios.position="right" android.position="actionBar">
+          <Label [text]="isDarkMode ? '🌙' : '☀️'" class="theme-icon"></Label>
+        </ActionItem>
+      </ActionBar>
 
-    <StackLayout class="card">
-      <Label text="Resumen de Presupuesto" class="h2"></Label>
-      <Label [text]="'Total: $' + presupuestoTotal" class="body"></Label>
-      <Label [text]="'Gastado: $' + gastoTotal" class="body"></Label>
-      <Label [text]="'Restante: $' + (presupuestoTotal - gastoTotal)" class="body"></Label>
-    </StackLayout>
-  </StackLayout>
-</ScrollView>
+      <ScrollView row="1">
+        <StackLayout class="page">
+          <StackLayout class="hero-section p-20">
+            <Label text="¡Bienvenidos!" class="hero-title"></Label>
+            <Label text="Planifica tu próximo viaje" class="hero-subtitle"></Label>
+          </StackLayout>
+          
+          <GridLayout rows="auto, auto, auto" columns="*, *" class="features-grid p-10">
+            <GridLayout row="0" col="0" class="feature-card" (tap)="navigateTo('/calendario')">
+              <StackLayout>
+                <Label text="📅" class="feature-icon"></Label>
+                <Label text="Calendario" class="feature-title"></Label>
+              </StackLayout>
+            </GridLayout>
+            
+            <GridLayout row="0" col="1" class="feature-card" (tap)="navigateTo('/fotos')">
+              <StackLayout>
+                <Label text="📸" class="feature-icon"></Label>
+                <Label text="Galería" class="feature-title"></Label>
+              </StackLayout>
+            </GridLayout>
+            
+            <GridLayout row="1" col="0" class="feature-card" (tap)="navigateTo('/itinerario')">
+              <StackLayout>
+                <Label text="🗺️" class="feature-icon"></Label>
+                <Label text="Itinerario" class="feature-title"></Label>
+              </StackLayout>
+            </GridLayout>
+            
+            <GridLayout row="1" col="1" class="feature-card budget-card" (tap)="navigateTo('/presupuesto')">
+              <StackLayout>
+                <Label text="💰" class="feature-icon"></Label>
+                <Label text="Presupuesto" class="feature-title"></Label>
+              </StackLayout>
+            </GridLayout>
+            
+            <GridLayout row="2" col="0" colSpan="2" class="feature-card-wide" (tap)="navigateTo('/notas')">
+              <StackLayout>
+                <Label text="📝" class="feature-icon"></Label>
+                <Label text="Notas y Tareas" class="feature-title"></Label>
+              </StackLayout>
+            </GridLayout>
+          </GridLayout>
+
+          <StackLayout class="upcoming-event p-15" *ngIf="proximoEvento">
+            <Label text="Próximo Evento" class="section-title"></Label>
+            <StackLayout class="event-card">
+              <Label [text]="proximoEvento.nombre" class="event-title"></Label>
+              <Label [text]="proximoEvento.fecha | date:'dd/MM/yyyy HH:mm'" class="event-date"></Label>
+            </StackLayout>
+          </StackLayout>
+        </StackLayout>
+      </ScrollView>
+    </GridLayout>
+  </RadSideDrawer>
+</GridLayout>
