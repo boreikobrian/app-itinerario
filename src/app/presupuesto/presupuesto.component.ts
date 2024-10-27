@@ -10,7 +10,7 @@ import { Gasto } from '../models/gasto.model';
 })
 export class PresupuestoComponent implements OnInit {
   gastos: Gasto[] = [];
-  categorias: string[] = ['Alojamiento', 'Comida', 'Transporte', 'Actividades', 'Otros'];
+  categorias: string[] = ['🏨 Alojamiento', '🍽️ Comida', '🚗 Transporte', '🎯 Actividades', '🛍️ Compras', '🎁 Otros'];
   presupuestoTotal: number = 0;
   gastoTotal: number = 0;
   nuevoConcepto: string = '';
@@ -33,18 +33,23 @@ export class PresupuestoComponent implements OnInit {
   }
 
   agregarGasto() {
-    if (this.nuevoConcepto && this.nuevoMonto && this.categoriaSeleccionada) {
+    if (this.nuevoConcepto && this.nuevoMonto > 0 && this.categoriaSeleccionada) {
       const nuevoGasto = new Gasto({
         concepto: this.nuevoConcepto,
-        monto: this.nuevoMonto,
-        categoria: this.categoriaSeleccionada
+        monto: Math.abs(this.nuevoMonto),
+        categoria: this.categoriaSeleccionada,
+        fecha: new Date()
       });
       this.presupuestoService.agregarGasto(nuevoGasto);
       this.cargarDatos();
-      this.nuevoConcepto = '';
-      this.nuevoMonto = 0;
-      this.categoriaSeleccionada = '';
+      this.limpiarFormulario();
     }
+  }
+
+  limpiarFormulario() {
+    this.nuevoConcepto = '';
+    this.nuevoMonto = 0;
+    this.categoriaSeleccionada = '';
   }
 
   actualizarGastoTotal() {
@@ -52,7 +57,7 @@ export class PresupuestoComponent implements OnInit {
   }
 
   establecerPresupuesto(monto: string) {
-    const nuevoPresupuesto = parseFloat(monto) || 0;
+    const nuevoPresupuesto = Math.abs(parseFloat(monto)) || 0;
     this.presupuestoService.establecerPresupuesto(nuevoPresupuesto);
     this.presupuestoTotal = nuevoPresupuesto;
   }

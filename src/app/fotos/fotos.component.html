@@ -1,12 +1,39 @@
-<ActionBar title="Fotos" class="action-bar">
+<ActionBar class="action-bar">
   <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="onBackTap()"></NavigationButton>
+  <Label text="Galería de Fotos"></Label>
 </ActionBar>
 
 <GridLayout rows="auto, *">
-  <Button text="Tomar Foto" (tap)="tomarFoto()" class="btn-primary" row="0"></Button>
+  <GridLayout row="0" columns="*, *" class="p-10">
+    <Button text="📸 Tomar Foto" (tap)="tomarFoto()" class="btn-primary" col="0"></Button>
+    <Button text="🖼️ Galería" (tap)="selectFromGallery()" class="btn-primary" col="1"></Button>
+  </GridLayout>
+
   <ScrollView row="1">
-    <WrapLayout>
-      <Image *ngFor="let foto of fotos" [src]="foto" stretch="aspectFill" width="33%" height="120" class="m-1"></Image>
-    </WrapLayout>
+    <GridLayout class="gallery-grid" columns="*, *, *">
+      <ng-container *ngFor="let foto of fotos; let i = index">
+        <StackLayout 
+          [col]="i % 3" 
+          [row]="Math.floor(i / 3)"
+          class="m-1">
+          <Image 
+            [src]="foto.source" 
+            stretch="aspectFill" 
+            height="120" 
+            class="gallery-image"
+            (tap)="verFoto(foto)"
+            (longPress)="deletePhoto(i)">
+          </Image>
+        </StackLayout>
+      </ng-container>
+    </GridLayout>
   </ScrollView>
 </GridLayout>
+
+<AbsoluteLayout *ngIf="fotoSeleccionada" class="photo-preview">
+  <StackLayout class="preview-container">
+    <Image [src]="fotoSeleccionada.source" stretch="aspectFit"></Image>
+    <Label [text]="fotoSeleccionada.data.fecha | date:'dd/MM/yyyy HH:mm'" class="preview-date"></Label>
+    <Button text="Cerrar" (tap)="cerrarVistaPrevia()" class="btn-primary"></Button>
+  </StackLayout>
+</AbsoluteLayout>

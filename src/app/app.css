@@ -1,0 +1,13 @@
+@import '@nativescript/theme/css/core.css';
+@import '@nativescript/theme/css/default.css';
+
+/* Existing styles remain the same until the theme icon styles */
+
+.theme-icon {
+  font-size: 24;
+  padding: 10;
+  margin-right: 10;
+  vertical-align: center;
+}
+
+/* Rest of the existing styles remain the same */

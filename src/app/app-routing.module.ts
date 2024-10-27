@@ -16,11 +16,11 @@ const routes: Routes = [
   { path: 'fotos', component: FotosComponent },
   { path: 'itinerario', component: ItinerarioComponent },
   { path: 'presupuesto', component: PresupuestoComponent },
-  { path: 'notas', component: NotasComponent },
+  { path: 'notas', component: NotasComponent }
 ];
 
 @NgModule({
   imports: [NativeScriptRouterModule.forRoot(routes)],
-  exports: [NativeScriptRouterModule],
+  exports: [NativeScriptRouterModule]
 })
 export class AppRoutingModule {}

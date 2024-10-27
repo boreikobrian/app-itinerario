@@ -1,21 +1,96 @@
-<ActionBar title="Presupuesto" class="action-bar">
+<ActionBar class="action-bar">
   <NavigationButton text="Atrás" android.systemIcon="ic_menu_back" (tap)="onBackTap()"></NavigationButton>
+  <Label text="Presupuesto"></Label>
 </ActionBar>
 
 <ScrollView>
   <StackLayout class="page p-10">
-    <TextField hint="Presupuesto total" keyboardType="number" (textChange)="establecerPresupuesto($event.value)" class="input"></TextField>
-    <TextField hint="Concepto del gasto" [(ngModel)]="nuevoConcepto" class="input"></TextField>
-    <TextField hint="Monto" keyboardType="number" [(ngModel)]="nuevoMonto" class="input"></TextField>
-    <ListPicker [items]="categorias" [(ngModel)]="categoriaSeleccionada" class="m-5"></ListPicker>
-    <Button text="Agregar Gasto" (tap)="agregarGasto()" class="btn-primary"></Button>
-    <Label [text]="'Presupuesto total: $' + presupuestoTotal" class="h2 m-t-10"></Label>
-    <Label [text]="'Gasto total: $' + gastoTotal" class="h2"></Label>
-    <Label [text]="'Restante: $' + (presupuestoTotal - gastoTotal)" class="h2"></Label>
-    <ListView [items]="gastos" class="list-group">
-      <ng-template let-gasto="item">
-        <Label [text]="gasto.concepto + ' - $' + gasto.monto + ' (' + gasto.categoria + ')'" class="list-group-item"></Label>
-      </ng-template>
-    </ListView>
+    <!-- Tarjeta de resumen mejorada -->
+    <GridLayout rows="auto, auto, auto" class="budget-summary-card">
+      <StackLayout row="0" class="budget-header">
+        <Label text="Presupuesto Total" class="budget-header-text"></Label>
+        <TextField 
+          [text]="presupuestoTotal.toString()" 
+          keyboardType="number" 
+          (textChange)="establecerPresupuesto($event.value)" 
+          class="budget-total-input"
+          hint="Ingresa tu presupuesto">
+        </TextField>
+      </StackLayout>
+
+      <GridLayout row="1" columns="*, *" class="budget-stats-container m-t-20">
+        <StackLayout col="0" class="budget-big-stat">
+          <Label text="💸 Gastado" class="big-stat-label"></Label>
+          <Label [text]="'$' + gastoTotal" class="big-stat-value expense"></Label>
+        </StackLayout>
+
+        <StackLayout col="1" class="budget-big-stat">
+          <Label text="💵 Disponible" class="big-stat-label"></Label>
+          <Label 
+            [text]="'$' + (presupuestoTotal - gastoTotal)" 
+            [class]="(presupuestoTotal - gastoTotal) > 0 ? 'big-stat-value available' : 'big-stat-value negative'">
+          </Label>
+        </StackLayout>
+      </GridLayout>
+
+      <StackLayout row="2" class="progress-container m-t-10">
+        <GridLayout columns="*" class="progress-bar">
+          <StackLayout col="0" [width]="(gastoTotal / presupuestoTotal * 100) + '%'" class="progress-fill"></StackLayout>
+        </GridLayout>
+      </StackLayout>
+    </GridLayout>
+
+    <!-- Formulario de nuevo gasto -->
+    <StackLayout class="expense-form m-t-20">
+      <TextField 
+        hint="¿En qué gastaste?" 
+        [(ngModel)]="nuevoConcepto" 
+        class="input">
+      </TextField>
+      
+      <TextField 
+        hint="¿Cuánto gastaste?" 
+        keyboardType="number" 
+        [(ngModel)]="nuevoMonto" 
+        class="input">
+      </TextField>
+      
+      <WrapLayout class="category-container">
+        <Button 
+          *ngFor="let cat of categorias" 
+          [text]="cat"
+          [class.selected]="categoriaSeleccionada === cat"
+          class="category-pill"
+          (tap)="categoriaSeleccionada = cat">
+        </Button>
+      </WrapLayout>
+      
+      <Button 
+        text="Agregar Gasto" 
+        (tap)="agregarGasto()" 
+        class="btn-primary">
+      </Button>
+    </StackLayout>
+
+    <!-- Lista de gastos -->
+    <StackLayout class="expense-list m-t-20">
+      <Label text="Historial de Gastos" class="section-title"></Label>
+      <ListView [items]="gastos" class="list-group">
+        <ng-template let-gasto="item">
+          <GridLayout columns="auto, *, auto" class="expense-item">
+            <Label [text]="gasto.categoria" class="expense-category" col="0"></Label>
+            <StackLayout col="1">
+              <Label [text]="gasto.concepto" class="expense-concept"></Label>
+              <Label [text]="gasto.fecha | date:'dd/MM/yyyy'" class="expense-date"></Label>
+            </StackLayout>
+            <Label 
+              [text]="'$' + gasto.monto"
+              class="expense-amount"
+              col="2">
+            </Label>
+          </GridLayout>
+        </ng-template>
+      </ListView>
+    </StackLayout>
   </StackLayout>
 </ScrollView>

@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RouterExtensions } from '@nativescript/angular';
 import { EventoService } from '../services/evento.service';
 import { PresupuestoService } from '../services/presupuesto.service';
 import { Application } from '@nativescript/core';
+import { RadSideDrawer } from 'nativescript-ui-sidedrawer';
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,8 @@ import { Application } from '@nativescript/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(RadSideDrawer) drawerComponent: RadSideDrawer;
+  
   proximoEvento: any;
   presupuestoTotal: number = 0;
   gastoTotal: number = 0;
@@ -22,18 +25,28 @@ export class HomeComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.cargarDatos();
+    this.isDarkMode = Application.systemAppearance() === 'dark';
+  }
+
+  cargarDatos() {
     this.cargarProximoEvento();
     this.cargarResumenPresupuesto();
-    this.isDarkMode = Application.systemAppearance() === 'dark';
-    Application.on('systemAppearanceChanged', this.onSystemAppearanceChanged, this);
   }
 
   navigateTo(route: string) {
+    console.log('Navigating to:', route);
     this.routerExtensions.navigate([route], {
+      animated: true,
       transition: {
-        name: 'slide'
-      },
-      clearHistory: false
+        name: 'slide',
+        duration: 200,
+        curve: 'ease'
+      }
+    }).then(() => {
+      console.log('Navigation completed');
+    }).catch(error => {
+      console.error('Navigation error:', error);
     });
   }
 
@@ -46,16 +59,14 @@ export class HomeComponent implements OnInit {
     this.gastoTotal = this.presupuestoService.obtenerGastoTotal();
   }
 
-  onThemeToggle(args: any) {
-    this.isDarkMode = args.object.checked;
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
     Application.setSystemAppearance(this.isDarkMode ? 'dark' : 'light');
   }
 
-  onSystemAppearanceChanged(args: any) {
-    this.isDarkMode = args.newValue === 'dark';
-  }
-
-  ngOnDestroy() {
-    Application.off('systemAppearanceChanged', this.onSystemAppearanceChanged, this);
+  openDrawer() {
+    if (this.drawerComponent) {
+      this.drawerComponent.toggleDrawerState();
+    }
   }
 }

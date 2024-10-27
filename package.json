@@ -16,9 +16,11 @@
     "@nativescript/camera": "^5.0.15",
     "@nativescript/core": "~8.8.0",
     "@nativescript/geolocation": "^8.0.2",
+    "@nativescript/imagepicker": "^2.0.0",
     "@nativescript/local-notifications": "^6.1.1",
     "@nativescript/theme": "~3.0.2",
     "nativescript-ui-calendar": "^8.0.0",
+    "nativescript-ui-sidedrawer": "^15.2.0",
     "rxjs": "~7.8.0",
     "zone.js": "~0.14.2"
   },
